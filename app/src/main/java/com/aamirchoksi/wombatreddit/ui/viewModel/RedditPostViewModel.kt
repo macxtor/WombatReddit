@@ -1,4 +1,4 @@
-package com.aamirchoksi.wombatreddit.ui
+package com.aamirchoksi.wombatreddit.ui.viewModel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
