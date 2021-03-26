@@ -3,6 +3,7 @@ package com.aamirchoksi.wombatreddit.di
 import com.aamirchoksi.wombatreddit.data.remote.RedditClient
 import com.aamirchoksi.wombatreddit.data.remote.RedditRepositoryImpl
 import com.aamirchoksi.wombatreddit.domain.repository.RedditRepository
+import com.aamirchoksi.wombatreddit.domain.usecase.GetHotRedditPostUseCase
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit
@@ -21,5 +22,11 @@ class DataModule {
     @Singleton
     fun provideRedditRepository(repository: RedditRepositoryImpl): RedditRepository {
         return repository
+    }
+
+    @Provides
+    @Singleton
+    fun provideGetHotRedditUseCase(repository: RedditRepository): GetHotRedditPostUseCase {
+        return GetHotRedditPostUseCase(repository)
     }
 }
