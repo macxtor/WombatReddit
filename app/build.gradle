@@ -20,6 +20,9 @@ android {
     }
 
     buildTypes {
+        debug {
+            buildConfigField "String", 'BASE_URL', '"https://www.reddit.com/r/Android/"'
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
