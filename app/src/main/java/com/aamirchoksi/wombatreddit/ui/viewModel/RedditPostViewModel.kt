@@ -21,7 +21,7 @@ class RedditPostViewModel @Inject constructor(
 
     fun fetchNews(after: String) = viewModelScope.launch {
         try {
-            when (val result = getHotRedditPostUseCase.execute(after)) {
+            when (val result = withContext(Dispatchers.IO) { getHotRedditPostUseCase.execute(after) }) {
                 is Result.Success -> handleSuccess(result.data)
                 is Result.Failure -> handleFailure(result.error)
             }
