@@ -2,21 +2,24 @@ package com.aamirchoksi.wombatreddit.ui.viewModel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.aamirchoksi.wombatreddit.domain.model.RedditNews
 import com.aamirchoksi.wombatreddit.domain.model.Submissions
 import com.aamirchoksi.wombatreddit.domain.usecase.GetHotRedditPostUseCase
 import com.aamirchoksi.wombatreddit.util.Result
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-public class RedditPostViewModel @Inject constructor(
+class RedditPostViewModel @Inject constructor(
     private val getHotRedditPostUseCase: GetHotRedditPostUseCase
 ) : ViewModel() {
 
     val newsState: MutableLiveData<PostState> = MutableLiveData()
 
-    fun fetchNews(after: String) = GlobalScope.launch {
+    fun fetchNews(after: String) = viewModelScope.launch {
         try {
             when (val result = getHotRedditPostUseCase.execute(after)) {
                 is Result.Success -> handleSuccess(result.data)
